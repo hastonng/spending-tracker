@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, Platform, View, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, Platform, View, TouchableOpacity, DatePickerIOS } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default class LinksScreen extends React.Component {
@@ -7,7 +7,7 @@ export default class LinksScreen extends React.Component {
     title: 'Add Item',
   };
 
-  state = { amount: '', desc: '' }
+  state = { amount: '', desc: '', date: new Date() }
 
   render() {
     return (
@@ -28,16 +28,23 @@ export default class LinksScreen extends React.Component {
           <View style={styles.row}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <TextInput
-                style={[styles.textInput, {flex: 1}]}
+                style={[styles.textInput, { flex: 1 }]}
                 onChangeText={(desc) => this.setState({ desc })}
                 value={this.state.text}
-                keyboardType='numeric'
                 placeholder="Description"
               />
             </View>
           </View>
+          <View style={styles.row}>
+            <View style={{ flex: 1 }}>
+              <DatePickerIOS
+                date={this.state.date}
+                onDateChange={(date) => this.setState({ date })}
+              />
+            </View>
+          </View>
         </ScrollView>
-        <TouchableOpacity onPress={() => alert('pressed')} style={styles.tabBarStickyBottom}>
+        <TouchableOpacity onPress={() => alert(JSON.stringify(this.state))} style={styles.tabBarStickyBottom}>
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Add</Text>
         </TouchableOpacity>
       </View>
