@@ -16,13 +16,13 @@ export default class HomeScreen extends React.Component {
   render() {
     const testData = [
       {
-        key: 0,
+        key: '0',
         amount: 1,
         desc: 'Food',
         date: new Date()
       },
       {
-        key: 1,
+        key: '1',
         amount: 2,
         desc: 'Food',
         date: new Date()

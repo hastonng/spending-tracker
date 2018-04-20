@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, Platform, View, TouchableOpacity, DatePickerIOS } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { Firebase } from "../api/config.js";
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
@@ -8,6 +9,15 @@ export default class LinksScreen extends React.Component {
   };
 
   state = { amount: '', desc: '', date: new Date() }
+
+  handleAddItem = () => {
+    alert(JSON.stringify(this.state))
+
+    Firebase.database().ref('users/' + 'joel').set({
+      item: this.state,
+      date: this.state.date.toLocaleDateString()
+    });
+  }
 
   render() {
     return (
@@ -44,7 +54,7 @@ export default class LinksScreen extends React.Component {
             </View>
           </View>
         </ScrollView>
-        <TouchableOpacity onPress={() => alert(JSON.stringify(this.state))} style={styles.tabBarStickyBottom}>
+        <TouchableOpacity onPress={this.handleAddItem} style={styles.tabBarStickyBottom}>
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Add</Text>
         </TouchableOpacity>
       </View>
