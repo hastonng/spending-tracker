@@ -4,7 +4,8 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  Platform
+  Platform,
+  FlatList
 } from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -13,27 +14,42 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    const testData = [
+      {
+        key: 0,
+        amount: 1,
+        desc: 'Food',
+        date: new Date()
+      },
+      {
+        key: 1,
+        amount: 2,
+        desc: 'Food',
+        date: new Date()
+      }
+    ]
     const date = new Date()
+    const total = testData.map(item => item.amount)
+    const totalAmount = total.reduce((accumulator, currentValue) => accumulator + currentValue)
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.card}>
-            <View style={styles.cardDate}>
-              <Text>{date.toLocaleDateString()}</Text>
-            </View>
-            <View style={styles.cardRow}>
-              <Text>Food</Text>
-              <Text>RM 8</Text>
-            </View>
-            <View style={styles.cardRow}>
-              <Text>Grocery</Text>
-              <Text>RM 2</Text>
-            </View>
-          </View>
+          <FlatList
+            data={testData}
+            renderItem={({ item }) =>
+              <View style={styles.card}>
+                <View style={styles.cardDate}>
+                  <Text>{item.date.toLocaleDateString()}</Text>
+                </View>
+                <View style={styles.cardRow}>
+                  <Text>{item.desc}</Text>
+                  <Text>RM {item.amount}</Text>
+                </View>
+              </View>} />
         </ScrollView>
         <View style={styles.tabBarStickyBottom}>
           <Text style={{ fontWeight: 'bold' }}>Total</Text>
-          <Text style={{ fontWeight: 'bold' }}>RM 10</Text>
+          <Text style={{ fontWeight: 'bold' }}>RM {totalAmount}</Text>
         </View>
       </View>
     );
