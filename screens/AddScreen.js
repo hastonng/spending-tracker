@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, Platform, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, Platform, View, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 export default class LinksScreen extends React.Component {
@@ -7,7 +7,7 @@ export default class LinksScreen extends React.Component {
     title: 'Add Item',
   };
 
-  state = { amount: '' }
+  state = { amount: '', desc: '' }
 
   render() {
     return (
@@ -19,17 +19,27 @@ export default class LinksScreen extends React.Component {
               <Text>RM </Text>
               <TextInput
                 style={styles.textInput}
-                onChangeText={(text) => this.setState({ amount })}
+                onChangeText={(amount) => this.setState({ amount })}
                 value={this.state.text}
                 keyboardType='numeric'
               />
             </View>
           </View>
+          <View style={styles.row}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TextInput
+                style={[styles.textInput, {flex: 1}]}
+                onChangeText={(desc) => this.setState({ desc })}
+                value={this.state.text}
+                keyboardType='numeric'
+                placeholder="Description"
+              />
+            </View>
+          </View>
         </ScrollView>
-        <View style={styles.tabBarStickyBottom}>
-          <Text style={{ fontWeight: 'bold' }}>Total</Text>
-          <Text style={{ fontWeight: 'bold' }}>RM 10</Text>
-        </View>
+        <TouchableOpacity onPress={() => alert('pressed')} style={styles.tabBarStickyBottom}>
+          <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Add</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -75,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbfbfb',
     paddingVertical: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     padding: 10,
   }
 });
