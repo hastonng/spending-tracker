@@ -1,33 +1,28 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Text,
-  Platform
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, Platform, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 
-export default class HomeScreen extends React.Component {
+export default class LinksScreen extends React.Component {
   static navigationOptions = {
-    title: 'Spending',
+    title: 'Add Item',
   };
 
+  state = { amount: '' }
+
   render() {
-    const date = new Date()
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.card}>
-            <View style={styles.cardDate}>
-              <Text>{date.toLocaleDateString()}</Text>
-            </View>
-            <View style={styles.cardRow}>
-              <Text>Food</Text>
-              <Text>RM 8</Text>
-            </View>
-            <View style={styles.cardRow}>
-              <Text>Grocery</Text>
-              <Text>RM 2</Text>
+        <ScrollView>
+          <View style={styles.row}>
+            <Text style={{ fontSize: 18 }}>Price</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text>RM </Text>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={(text) => this.setState({ amount })}
+                value={this.state.text}
+                keyboardType='numeric'
+              />
             </View>
           </View>
         </ScrollView>
@@ -45,26 +40,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  contentContainer: {
-    // paddingTop: 30,
-  },
-  card: {
-    borderWidth: 0.5,
-    borderColor: '#d6d7da'
-  },
-  cardDate: {
-    padding: 10,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-    backgroundColor: '#f5f5f5'
-  },
-  cardRow: {
-    padding: 10,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 30,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  textInput: {
+    width: 80,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    padding: 10
   },
   tabBarStickyBottom: {
     position: 'absolute',
