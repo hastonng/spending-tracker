@@ -22,8 +22,8 @@ export default class LinksScreen extends React.Component {
     Firebase.database().ref('users/' + 'joel').set({
       items: [
         {
-          amount: amount,
-          desc: desc,
+          amount: this.state.amount,
+          desc: this.state.desc,
           date: this.state.date.toLocaleDateString()
         }
       ]
