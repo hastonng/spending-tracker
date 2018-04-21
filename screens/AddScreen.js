@@ -7,7 +7,6 @@ import {
   View,
   TouchableOpacity,
   DatePickerIOS,
-  Keyboard
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Firebase } from "../api/config.js";
@@ -23,8 +22,8 @@ export default class LinksScreen extends React.Component {
     Firebase.database().ref('users/' + 'joel').set({
       items: [
         {
-          amount: 1,
-          desc: 'Food',
+          amount: amount,
+          desc: desc,
           date: this.state.date.toLocaleDateString()
         }
       ]
@@ -34,8 +33,8 @@ export default class LinksScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container} onPress={Keyboard.dismiss()}>
-        <ScrollView>
+      <View style={styles.container}>
+        <ScrollView keyboardDismissMode={'on-drag'}>
           <View style={styles.row}>
             <Text style={{ fontSize: 18 }}>Price</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
