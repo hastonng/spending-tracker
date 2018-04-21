@@ -20,8 +20,9 @@ export default class HomeScreen extends React.Component {
     const items = Firebase.database().ref('users/' + 'joel');
     items.on('value', (snapshot) => {
       const data = snapshot.val()
-      data.items.map((item, index) => item.key = index.toString())
-      this.setState({ items: data.items })
+      const convertedItems = Object.values(data.items)
+      convertedItems.map((item, index) => item.key = index.toString())
+      this.setState({ items: convertedItems })
     });
   }
 

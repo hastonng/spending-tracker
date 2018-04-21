@@ -19,15 +19,13 @@ export default class LinksScreen extends React.Component {
   state = { amount: '', desc: '', date: new Date() }
 
   handleAddItem = () => {
-    Firebase.database().ref('users/' + 'joel').set({
-      items: [
-        {
-          amount: this.state.amount,
-          desc: this.state.desc,
-          date: this.state.date.toLocaleDateString()
-        }
-      ]
-    })
+    Firebase.database().ref('users/' + 'joel' + '/items').push().set(
+      {
+        amount: this.state.amount,
+        desc: this.state.desc,
+        date: this.state.date.toLocaleDateString()
+      }
+    )
     alert('Item updated')
   }
 
