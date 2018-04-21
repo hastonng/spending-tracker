@@ -7,35 +7,44 @@ import {
   Platform,
   FlatList
 } from 'react-native';
+import { Firebase } from "../api/config.js";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Spending',
   };
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      items: [
+        {
+          key: '0',
+          amount: 1,
+          desc: 'Food',
+          date: new Date()
+        },
+        {
+          key: '1',
+          amount: 2,
+          desc: 'Food',
+          date: new Date()
+        }
+      ]
+    }
+  }
+
   render() {
-    const testData = [
-      {
-        key: '0',
-        amount: 1,
-        desc: 'Food',
-        date: new Date()
-      },
-      {
-        key: '1',
-        amount: 2,
-        desc: 'Food',
-        date: new Date()
-      }
-    ]
     const date = new Date()
-    const total = testData.map(item => item.amount)
+    const { items } = this.state
+    const total = items.map(item => item.amount)
     const totalAmount = total.reduce((accumulator, currentValue) => accumulator + currentValue)
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <FlatList
-            data={testData}
+            data={items}
+            extraData={this.state}
             renderItem={({ item }) =>
               <View style={styles.card}>
                 <View style={styles.cardDate}>
