@@ -1,5 +1,14 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, Platform, View, TouchableOpacity, DatePickerIOS } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  Platform,
+  View,
+  TouchableOpacity,
+  DatePickerIOS,
+  Keyboard
+} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Firebase } from "../api/config.js";
 
@@ -11,17 +20,21 @@ export default class LinksScreen extends React.Component {
   state = { amount: '', desc: '', date: new Date() }
 
   handleAddItem = () => {
-    alert(JSON.stringify(this.state))
-
     Firebase.database().ref('users/' + 'joel').set({
-      item: this.state,
-      date: this.state.date.toLocaleDateString()
-    });
+      items: [
+        {
+          amount: 1,
+          desc: 'Food',
+          date: this.state.date.toLocaleDateString()
+        }
+      ]
+    })
+    alert('Item updated')
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onPress={Keyboard.dismiss()}>
         <ScrollView>
           <View style={styles.row}>
             <Text style={{ fontSize: 18 }}>Price</Text>
