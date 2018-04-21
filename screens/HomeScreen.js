@@ -16,29 +16,20 @@ export default class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      items: [
-        {
-          key: '0',
-          amount: 1,
-          desc: 'Food',
-          date: new Date()
-        },
-        {
-          key: '1',
-          amount: 2,
-          desc: 'Food',
-          date: new Date()
-        }
-      ]
-    }
+    this.state = { items: [{ key: '1'}] }
+    const items = Firebase.database().ref('users/' + 'joel');
+    items.on('value', (snapshot) => {
+      const data = snapshot.val()
+      data.items.map((item, index) => item.key = index.toString())
+      this.setState({ items: data.items })
+    });
   }
 
   render() {
     const date = new Date()
     const { items } = this.state
     const total = items.map(item => item.amount)
-    const totalAmount = total.reduce((accumulator, currentValue) => accumulator + currentValue)
+    const totalAmount = total ? total.reduce((accumulator, currentValue) => accumulator + currentValue) : 0
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -48,7 +39,7 @@ export default class HomeScreen extends React.Component {
             renderItem={({ item }) =>
               <View style={styles.card}>
                 <View style={styles.cardDate}>
-                  <Text>{item.date.toLocaleDateString()}</Text>
+                  <Text>{JSON.stringify(item.date)}</Text>
                 </View>
                 <View style={styles.cardRow}>
                   <Text>{item.desc}</Text>
